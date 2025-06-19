@@ -1,0 +1,13 @@
+{
+  "name": "pin-scout",
+  "author": "fredrikj31",
+  "description": "A web application which allows people to create their own maps with pins.",
+  "repository": {
+    "url": "https://github.com/fredrikj31/pin-scout"
+  },
+  "license": "Apache-2.0",
+  "scripts": {
+    "app:dev": "pnpm --filter @pin-scout/app run dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
