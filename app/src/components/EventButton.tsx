@@ -1,5 +1,6 @@
 import { logEvent } from "firebase/analytics";
 import { useFirebase } from "../providers/firebase/useFirebase";
+import { Button } from "@shadcn-ui/components/ui/button";
 
 export const EventButton = () => {
   const { analytics } = useFirebase();
@@ -8,5 +9,13 @@ export const EventButton = () => {
     logEvent(analytics, "test-button-clicked");
   };
 
-  return <button onClick={() => onClick()}>Click Me</button>;
+  return (
+    <Button
+      className="hover:cursor-pointer"
+      variant="outline"
+      onClick={() => onClick()}
+    >
+      Click Me
+    </Button>
+  );
 };
