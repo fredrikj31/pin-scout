@@ -3,6 +3,7 @@ import { firebaseConfig } from "../../configs/firebase";
 import { FirebaseContext } from "./context";
 import { getAnalytics } from "firebase/analytics";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
+import { getAuth } from "firebase/auth";
 import { config } from "../../config";
 
 export const FirebaseProvider = ({
@@ -17,11 +18,13 @@ export const FirebaseProvider = ({
   });
 
   const analytics = getAnalytics(app);
+  const auth = getAuth(app);
 
   return (
     <FirebaseContext.Provider
       value={{
         analytics,
+        auth,
       }}
     >
       {children}
