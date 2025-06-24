@@ -30,6 +30,9 @@ jobs:
       #   run: pnpm run test
 
       - name: Build Typescript
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+          VITE_RECAPTCHA_SITE_KEY: ${{ secrets.RECAPTCHA_SITE_KEY }}
         run: pnpm run app:build
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
