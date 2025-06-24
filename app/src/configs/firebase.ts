@@ -1,7 +1,8 @@
 import type { FirebaseOptions } from "firebase/app";
+import { config } from "../config";
 
 export const firebaseConfig: FirebaseOptions = {
-  apiKey: "AIzaSyDFMm1-zwxexPIeU1_UR-6ROnG_3bKPVrU",
+  apiKey: config.firebase.apiKey,
   authDomain: "pin-scout.firebaseapp.com",
   projectId: "pin-scout",
   storageBucket: "pin-scout.firebasestorage.app",
