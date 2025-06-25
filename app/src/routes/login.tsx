@@ -10,17 +10,17 @@ import {
 import { Input } from "@shadcn-ui/components/ui/input";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef } from "react";
-import { useLoginUser } from "../api/loginUser/useLoginUser";
+import { useAuth } from "../providers/auth/useAuth";
 
 export const Route = createFileRoute("/login")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const auth = useAuth();
+
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
-
-  const { mutate: loginUser } = useLoginUser();
 
   const login = () => {
     const email = emailInput.current?.value;
@@ -28,17 +28,7 @@ function RouteComponent() {
 
     if (!email || !password) return;
 
-    loginUser(
-      { email, password },
-      {
-        onError: () => {
-          alert("Failed to login!");
-        },
-        onSuccess: () => {
-          alert("Logged in!");
-        },
-      }
-    );
+    auth.login({ email, password });
   };
 
   return (
