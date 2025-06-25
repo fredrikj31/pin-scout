@@ -1,4 +1,8 @@
-import { createUserWithEmailAndPassword, type Auth } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  type Auth,
+  type User,
+} from "firebase/auth";
 
 interface CreateUserOptions {
   auth: Auth;
@@ -9,9 +13,10 @@ export const createUser = async ({
   auth,
   email,
   password,
-}: CreateUserOptions): Promise<void> => {
+}: CreateUserOptions): Promise<User> => {
   try {
-    await createUserWithEmailAndPassword(auth, email, password);
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+    return result.user;
   } catch (error: unknown) {
     console.log("Failed to create user with email and password", error);
     throw error;
