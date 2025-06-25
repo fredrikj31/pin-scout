@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 const envVarsSchema = z.object({
+  VITE_FIREBASE_APPCHECK_DEBUG_TOKEN: z.string().optional(),
   VITE_FIREBASE_API_KEY: z.string(),
   VITE_RECAPTCHA_SITE_KEY: z.string(),
 });
@@ -13,6 +14,7 @@ if (!envVars.success) {
 
 export const config = {
   firebase: {
+    debugToken: envVars.data.VITE_FIREBASE_APPCHECK_DEBUG_TOKEN,
     apiKey: envVars.data.VITE_FIREBASE_API_KEY,
   },
   recaptcha: {

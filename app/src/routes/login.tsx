@@ -1,3 +1,4 @@
+import { Label } from "@radix-ui/react-label";
 import { Button } from "@shadcn-ui/components/ui/button";
 import {
   Card,
@@ -7,12 +8,11 @@ import {
   CardTitle,
 } from "@shadcn-ui/components/ui/card";
 import { Input } from "@shadcn-ui/components/ui/input";
-import { Label } from "@shadcn-ui/components/ui/label";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useCreateUser } from "../api/createUser/useCreateUser";
 import { useRef } from "react";
+import { useLoginUser } from "../api/loginUser/useLoginUser";
 
-export const Route = createFileRoute("/signup")({
+export const Route = createFileRoute("/login")({
   component: RouteComponent,
 });
 
@@ -20,22 +20,22 @@ function RouteComponent() {
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
 
-  const { mutate: createUser } = useCreateUser();
+  const { mutate: loginUser } = useLoginUser();
 
-  const signup = () => {
+  const login = () => {
     const email = emailInput.current?.value;
     const password = passwordInput.current?.value;
 
     if (!email || !password) return;
 
-    createUser(
+    loginUser(
       { email, password },
       {
         onError: () => {
-          alert("Failed to sign up!");
+          alert("Failed to login!");
         },
         onSuccess: () => {
-          alert("Signed up!");
+          alert("Logged in!");
         },
       }
     );
@@ -47,8 +47,10 @@ function RouteComponent() {
         <div className="flex flex-col gap-6">
           <Card>
             <CardHeader>
-              <CardTitle>Create your user</CardTitle>
-              <CardDescription>Sign up and create a profile</CardDescription>
+              <CardTitle>Login to your account</CardTitle>
+              <CardDescription>
+                Enter your email below to login to your account
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex flex-col gap-6">
@@ -72,15 +74,15 @@ function RouteComponent() {
                   />
                 </div>
                 <div className="flex flex-col gap-3">
-                  <Button onClick={() => signup()} className="w-full">
-                    Signup
+                  <Button onClick={() => login()} className="w-full">
+                    Login
                   </Button>
                 </div>
               </div>
               <div className="mt-4 text-center text-sm">
                 Already have an account?{" "}
-                <Link to="/login" className="underline underline-offset-4">
-                  Login
+                <Link to="/signup" className="underline underline-offset-4">
+                  Signup
                 </Link>
               </div>
             </CardContent>

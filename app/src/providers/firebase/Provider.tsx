@@ -13,6 +13,10 @@ export const FirebaseProvider = ({
 }) => {
   const app = initializeApp(firebaseConfig);
 
+  if (config.firebase.debugToken) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (self as any).FIREBASE_APPCHECK_DEBUG_TOKEN = config.firebase.debugToken;
+  }
   initializeAppCheck(app, {
     provider: new ReCaptchaV3Provider(config.recaptcha.siteKey),
   });
