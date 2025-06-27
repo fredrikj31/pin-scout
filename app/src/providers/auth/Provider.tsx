@@ -1,21 +1,21 @@
-import { useNavigate } from "@tanstack/react-router";
+import { type User } from "firebase/auth";
 import { AuthContext } from "./context";
 import { useEffect, useState } from "react";
-import { type User } from "firebase/auth";
 import { useLoginUser } from "../../api/loginUser/useLoginUser";
 import { useCreateUser } from "../../api/createUser/useCreateUser";
+import { useFirebase } from "../firebase/useFirebase";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const navigate = useNavigate();
+  const { auth } = useFirebase();
 
   const { mutate: loginUser } = useLoginUser();
   const { mutate: createUser } = useCreateUser();
 
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(auth.currentUser);
 
   useEffect(() => {
-    console.log("user", user);
-  }, [user]);
+    setUser(auth.currentUser);
+  }, [auth]);
 
   const login = (data: { email: string; password: string }) => {
     loginUser(data, {
@@ -24,9 +24,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       },
       onSuccess: (user) => {
         setUser(user);
-        navigate({ to: "/" });
       },
-    });
+    }); // TODO: Make callback to revalidate contexts
   };
 
   const signup = (data: { email: string; password: string }) => {
@@ -36,9 +35,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       },
       onSuccess: (user) => {
         setUser(user);
-        navigate({ to: "/" });
       },
-    });
+    }); // TODO: Make callback to revalidate contexts
   };
 
   return (
