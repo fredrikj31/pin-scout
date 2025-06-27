@@ -4,7 +4,7 @@ import { useState } from "react";
 import { onAuthStateChanged, type User } from "firebase/auth";
 import { useFirebase } from "../firebase/useFirebase";
 import { useLoginUser } from "../../api/loginUser/useLoginUser";
-import { useCreateUser } from "../../api/createUser/useCreateUser";
+import { useSignupUser } from "../../api/signupUser/useSignupUser";
 import { useLogoutUser } from "../../api/logoutUser/useLogoutUser";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const {auth} = useFirebase();
 
   const { mutate: loginUser } = useLoginUser();
-  const { mutate: createUser } = useCreateUser();
+  const { mutate: signupUser } = useSignupUser();
   const { mutate: logoutUser } = useLogoutUser();
 
   const [user, setUser] = useState<User | null | undefined>(undefined); // Set default as loading, to wait until Firebase auth has finished loading
@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const signup = (data: { email: string; password: string }) => {
-    createUser(data, {
+    signupUser(data, {
       onError: (error) => {
         console.log("Error while signing up!", error);
       },
