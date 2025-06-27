@@ -4,21 +4,21 @@ import {
   type User,
 } from "firebase/auth";
 
-interface CreateUserOptions {
+interface SignupUserOptions {
   auth: Auth;
   email: string;
   password: string;
 }
-export const createUser = async ({
+export const signupUser = async ({
   auth,
   email,
   password,
-}: CreateUserOptions): Promise<User> => {
+}: SignupUserOptions): Promise<User> => {
   try {
     const result = await createUserWithEmailAndPassword(auth, email, password);
     return result.user;
   } catch (error: unknown) {
-    console.log("Failed to create user with email and password", error);
+    console.log("Failed to signup user with email and password", error);
     throw error;
   }
 };
