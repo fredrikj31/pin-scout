@@ -1,12 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { EventButton } from "../components/EventButton";
 import { useAuth } from "../providers/auth/useAuth";
 
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-function Index() {
+export const HomePage = () => {
   const auth = useAuth();
 
   return (
@@ -15,4 +10,4 @@ function Index() {
       <EventButton />
     </div>
   );
-}
+};

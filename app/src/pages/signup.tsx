@@ -1,4 +1,3 @@
-import { Label } from "@radix-ui/react-label";
 import { Button } from "@shadcn-ui/components/ui/button";
 import {
   Card,
@@ -8,27 +7,24 @@ import {
   CardTitle,
 } from "@shadcn-ui/components/ui/card";
 import { Input } from "@shadcn-ui/components/ui/input";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Label } from "@shadcn-ui/components/ui/label";
+import { Link } from "react-router";
 import { useRef } from "react";
 import { useAuth } from "../providers/auth/useAuth";
 
-export const Route = createFileRoute("/login")({
-  component: RouteComponent,
-});
-
-function RouteComponent() {
-  const auth = useAuth();
-
+export const SignupPage = () => {
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
 
-  const login = () => {
+  const auth = useAuth();
+
+  const signup = () => {
     const email = emailInput.current?.value;
     const password = passwordInput.current?.value;
 
     if (!email || !password) return;
 
-    auth.login({ email, password });
+    auth.signup({ email, password });
   };
 
   return (
@@ -37,10 +33,8 @@ function RouteComponent() {
         <div className="flex flex-col gap-6">
           <Card>
             <CardHeader>
-              <CardTitle>Login to your account</CardTitle>
-              <CardDescription>
-                Enter your email below to login to your account
-              </CardDescription>
+              <CardTitle>Create your user</CardTitle>
+              <CardDescription>Sign up and create a profile</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex flex-col gap-6">
@@ -64,15 +58,15 @@ function RouteComponent() {
                   />
                 </div>
                 <div className="flex flex-col gap-3">
-                  <Button onClick={() => login()} className="w-full">
-                    Login
+                  <Button onClick={() => signup()} className="w-full">
+                    Signup
                   </Button>
                 </div>
               </div>
               <div className="mt-4 text-center text-sm">
                 Already have an account?{" "}
-                <Link to="/signup" className="underline underline-offset-4">
-                  Signup
+                <Link to="/login" className="underline underline-offset-4">
+                  Login
                 </Link>
               </div>
             </CardContent>
@@ -81,4 +75,4 @@ function RouteComponent() {
       </div>
     </div>
   );
-}
+};
