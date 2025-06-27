@@ -1,4 +1,4 @@
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "react-router";
 import { AuthContext } from "./context";
 import { useEffect, useState } from "react";
 import { type User } from "firebase/auth";
@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       },
       onSuccess: (user) => {
         setUser(user);
-        navigate({ to: "/" });
+        navigate("/");
       },
     });
   };
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       },
       onSuccess: (user) => {
         setUser(user);
-        navigate({ to: "/" });
+        navigate("/");
       },
     });
   };
