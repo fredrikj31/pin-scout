@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import { AuthContext } from "./context";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { type User } from "firebase/auth";
 import { useLoginUser } from "../../api/loginUser/useLoginUser";
 import { useCreateUser } from "../../api/createUser/useCreateUser";
@@ -11,11 +11,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { mutate: loginUser } = useLoginUser();
   const { mutate: createUser } = useCreateUser();
 
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    console.log("user", user);
-  }, [user]);
+  const [user, setUser] = useState<User | null | undefined>(undefined); // Set default as loading, to wait until Firebase auth has finished loading
 
   const login = (data: { email: string; password: string }) => {
     loginUser(data, {
