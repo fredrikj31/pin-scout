@@ -6,6 +6,7 @@ import { HomePage } from "./pages/home";
 import "./index.css";
 import { LoginPage } from "./pages/login";
 import { SignupPage } from "./pages/signup";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 export const App = () => {
   const queryClient = new QueryClient();
@@ -16,7 +17,14 @@ export const App = () => {
         <FirebaseProvider>
           <AuthProvider>
             <Routes>
-              <Route path="/" index element={<HomePage />} />
+              <Route
+                path="/"
+                element={
+                  <ProtectedRoute>
+                    <HomePage />
+                  </ProtectedRoute>
+                }
+              />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignupPage />} />
             </Routes>
