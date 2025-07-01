@@ -5,6 +5,26 @@ on:
     types: [published]
 
 jobs:
+  deploy_firebase_rules:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+
+      - name: Authenticate to Google Cloud
+        uses: "google-github-actions/auth@v2"
+        with:
+          credentials_json: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}"
+
+      - name: Installs Firebase CLI
+        run: npm i -g firebase-tools
+
+      - name: Deploy Firestore rules & indexes
+        run: firebase deploy --only firestore:rules --project pin-scout
+
   deploy_production:
     runs-on: ubuntu-latest
     steps:
