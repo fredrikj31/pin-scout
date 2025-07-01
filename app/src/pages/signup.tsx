@@ -15,16 +15,20 @@ import { useAuth } from "../providers/auth/useAuth";
 export const SignupPage = () => {
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
+  const firstNameInput = useRef<HTMLInputElement>(null);
+  const lastNameInput = useRef<HTMLInputElement>(null);
 
   const auth = useAuth();
 
   const signup = () => {
     const email = emailInput.current?.value;
     const password = passwordInput.current?.value;
+    const firstName = firstNameInput.current?.value;
+    const lastName = lastNameInput.current?.value;
 
-    if (!email || !password) return;
+    if (!email || !password || !firstName || !lastName) return;
 
-    auth.signup({ email, password });
+    auth.signup({ email, password, firstName, lastName });
   };
 
   return (
@@ -56,6 +60,26 @@ export const SignupPage = () => {
                     type="password"
                     required
                   />
+                </div>
+                <div className="flex flex-row gap-2">
+                  <div className="grid gap-3">
+                    <Label htmlFor="firstName">First Name</Label>
+                    <Input
+                      ref={firstNameInput}
+                      id="firstName"
+                      type="text"
+                      required
+                    />
+                  </div>
+                  <div className="grid gap-3">
+                    <Label htmlFor="lastName">Last Name</Label>
+                    <Input
+                      ref={lastNameInput}
+                      id="lastName"
+                      type="text"
+                      required
+                    />
+                  </div>
                 </div>
                 <div className="flex flex-col gap-3">
                   <Button onClick={() => signup()} className="w-full">

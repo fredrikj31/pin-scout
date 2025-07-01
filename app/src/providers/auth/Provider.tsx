@@ -9,7 +9,7 @@ import { useLogoutUser } from "../../api/logoutUser/useLogoutUser";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
-  const {auth} = useFirebase();
+  const { auth } = useFirebase();
 
   const { mutate: loginUser } = useLoginUser();
   const { mutate: signupUser } = useSignupUser();
@@ -37,7 +37,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     });
   };
 
-  const signup = (data: { email: string; password: string }) => {
+  const signup = (
+    data: Omit<Parameters<typeof signupUser>[0], "auth" | "firestore">
+  ) => {
     signupUser(data, {
       onError: (error) => {
         console.log("Error while signing up!", error);
@@ -58,8 +60,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUser(null);
         navigate("/login");
       },
-    })
-  }
+    });
+  };
 
   return (
     <AuthContext.Provider
