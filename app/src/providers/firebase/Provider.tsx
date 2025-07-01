@@ -5,6 +5,7 @@ import { getAnalytics } from "firebase/analytics";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 import { getAuth } from "firebase/auth";
 import { config } from "../../config";
+import { getFirestore } from "firebase/firestore";
 
 export const FirebaseProvider = ({
   children,
@@ -23,12 +24,14 @@ export const FirebaseProvider = ({
 
   const analytics = getAnalytics(app);
   const auth = getAuth(app);
+  const firestore = getFirestore(app);
 
   return (
     <FirebaseContext.Provider
       value={{
         analytics,
         auth,
+        firestore,
       }}
     >
       {children}
