@@ -1,6 +1,6 @@
 import { Button } from "@shadcn-ui/components/ui/button";
-import { EventButton } from "../components/EventButton";
-import { useAuth } from "../providers/auth/useAuth";
+import { EventButton } from "../../components/EventButton";
+import { useAuth } from "../../providers/auth/useAuth";
 
 export const HomePage = () => {
   const auth = useAuth();
