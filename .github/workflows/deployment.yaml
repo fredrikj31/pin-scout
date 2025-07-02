@@ -20,6 +20,10 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Print Out Variables
+        run: |
+          echo "Deploying to ${{ vars.FIREBASE_AUTH_DOMAIN }}"
+
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
