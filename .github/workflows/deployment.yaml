@@ -23,6 +23,7 @@ jobs:
       - name: Print Out Variables
         run: |
           echo "Deploying to ${{ vars.FIREBASE_AUTH_DOMAIN }}"
+          echo "Hello World secret...: ${{ secrets.HELLO_WORLD }}"
 
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
