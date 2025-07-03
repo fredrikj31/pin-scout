@@ -2,11 +2,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { FirebaseProvider } from "./providers/firebase/Provider";
 import { AuthProvider } from "./providers/auth/Provider";
-import { HomePage } from "./pages/home";
 import "./index.css";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { HomePage } from "./pages/Home/home";
 import { LoginPage } from "./pages/login";
 import { SignupPage } from "./pages/signup";
-import { ProtectedRoute } from "./components/ProtectedRoute";
 
 export const App = () => {
   const queryClient = new QueryClient();
