@@ -10,7 +10,7 @@ import {
 import { Input } from "@shadcn-ui/components/ui/input";
 import { useRef } from "react";
 import { Link } from "react-router";
-import { useAuth } from "../providers/auth/useAuth";
+import { useAuth } from "~/providers/auth/useAuth";
 
 export const LoginPage = () => {
   const auth = useAuth();

@@ -10,7 +10,7 @@ import { Input } from "@shadcn-ui/components/ui/input";
 import { Label } from "@shadcn-ui/components/ui/label";
 import { Link } from "react-router";
 import { useRef } from "react";
-import { useAuth } from "../providers/auth/useAuth";
+import { useAuth } from "~/providers/auth/useAuth";
 
 export const SignupPage = () => {
   const emailInput = useRef<HTMLInputElement>(null);

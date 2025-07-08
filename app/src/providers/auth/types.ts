@@ -1,5 +1,5 @@
 import type { User } from "firebase/auth";
-import type { signupUser } from "src/api/signupUser/signupUser";
+import type { signupUser } from "~/api/signupUser/signupUser";
 
 export interface AuthProviderValue {
   user: User | null | undefined; // User = logged in || null = logged out || undefined = loading

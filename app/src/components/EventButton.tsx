@@ -1,6 +1,6 @@
 import { logEvent } from "firebase/analytics";
-import { useFirebase } from "../providers/firebase/useFirebase";
 import { Button } from "@shadcn-ui/components/ui/button";
+import { useFirebase } from "~/providers/firebase/useFirebase";
 
 export const EventButton = () => {
   const { analytics } = useFirebase();

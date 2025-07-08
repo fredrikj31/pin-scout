@@ -1,10 +1,10 @@
 import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "../../configs/firebase";
+import { firebaseConfig } from "~/configs/firebase";
 import { FirebaseContext } from "./context";
 import { getAnalytics } from "firebase/analytics";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 import { getAuth } from "firebase/auth";
-import { config } from "../../config";
+import { config } from "~/config";
 import { getFirestore } from "firebase/firestore";
 
 export const FirebaseProvider = ({

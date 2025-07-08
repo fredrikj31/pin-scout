@@ -3,9 +3,9 @@ import { AuthContext } from "./context";
 import { useState } from "react";
 import { onAuthStateChanged, type User } from "firebase/auth";
 import { useFirebase } from "../firebase/useFirebase";
-import { useLoginUser } from "../../api/loginUser/useLoginUser";
-import { useSignupUser } from "../../api/signupUser/useSignupUser";
-import { useLogoutUser } from "../../api/logoutUser/useLogoutUser";
+import { useLoginUser } from "~/api/loginUser/useLoginUser";
+import { useSignupUser } from "~/api/signupUser/useSignupUser";
+import { useLogoutUser } from "~/api/logoutUser/useLogoutUser";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();

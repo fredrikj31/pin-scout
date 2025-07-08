@@ -1,8 +1,8 @@
 import { APIProvider, Map, useMapsLibrary } from "@vis.gl/react-google-maps";
-import { config } from "../config";
+import { config } from "~/config";
 import { useEffect } from "react";
 import { getToken } from "firebase/app-check";
-import { useFirebase } from "../providers/firebase/useFirebase";
+import { useFirebase } from "~/providers/firebase/useFirebase";
 
 const AppCheckHandler = () => {
   const { appCheck } = useFirebase();
