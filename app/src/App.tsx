@@ -8,6 +8,7 @@ import { HomePage } from "./pages/Home/home";
 import { LoginPage } from "./pages/login";
 import { SignupPage } from "./pages/signup";
 import { MapPage } from "./pages/Map/map";
+import { MapEditPage } from "./pages/MapEdit/MapEdit";
 
 export const App = () => {
   const queryClient = new QueryClient();
@@ -31,6 +32,14 @@ export const App = () => {
                 element={
                   <ProtectedRoute>
                     <MapPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/map/:id/edit"
+                element={
+                  <ProtectedRoute>
+                    <MapEditPage />
                   </ProtectedRoute>
                 }
               />
