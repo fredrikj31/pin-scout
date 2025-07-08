@@ -18,8 +18,9 @@ export const FirebaseProvider = ({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (self as any).FIREBASE_APPCHECK_DEBUG_TOKEN = config.firebase.debugToken;
   }
-  initializeAppCheck(app, {
+  const appCheck = initializeAppCheck(app, {
     provider: new ReCaptchaV3Provider(config.recaptcha.siteKey),
+    isTokenAutoRefreshEnabled: true,
   });
 
   const analytics = getAnalytics(app);
@@ -29,6 +30,7 @@ export const FirebaseProvider = ({
   return (
     <FirebaseContext.Provider
       value={{
+        appCheck,
         analytics,
         auth,
         firestore,
