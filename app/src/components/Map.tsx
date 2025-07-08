@@ -1,7 +1,7 @@
 import { APIProvider, Map, useMapsLibrary } from "@vis.gl/react-google-maps";
 import { config } from "~/config";
 import { useEffect } from "react";
-import { getToken } from "firebase/app-check";
+import { getToken, type AppCheckTokenResult } from "firebase/app-check";
 import { useFirebase } from "~/providers/firebase/useFirebase";
 
 const AppCheckHandler = () => {
@@ -11,7 +11,11 @@ const AppCheckHandler = () => {
     if (!coreLib) return;
 
     const settings = coreLib.Settings.getInstance();
-    settings.fetchAppCheckToken = async () => getToken(appCheck);
+    (
+      settings as unknown as {
+        fetchAppCheckToken: () => Promise<AppCheckTokenResult>;
+      }
+    ).fetchAppCheckToken = async () => getToken(appCheck);
   }, [appCheck, coreLib]);
 
   return null;
