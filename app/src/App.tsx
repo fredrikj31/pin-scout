@@ -7,6 +7,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { HomePage } from "./pages/Home/home";
 import { LoginPage } from "./pages/login";
 import { SignupPage } from "./pages/signup";
+import { MapPage } from "./pages/Map/map";
 
 export const App = () => {
   const queryClient = new QueryClient();
@@ -22,6 +23,14 @@ export const App = () => {
                 element={
                   <ProtectedRoute>
                     <HomePage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/map"
+                element={
+                  <ProtectedRoute>
+                    <MapPage />
                   </ProtectedRoute>
                 }
               />
