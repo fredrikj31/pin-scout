@@ -13,8 +13,8 @@ import {
   DropdownMenuTrigger,
 } from "@shadcn-ui/components/ui/dropdown-menu";
 import { Globe, Settings, User } from "lucide-react";
-import { useAuth } from "../../providers/auth/useAuth";
-import { useGetUser } from "../../api/getUser/useGetUser";
+import { useGetUser } from "~/api/getUser/useGetUser";
+import { useAuth } from "~/providers/auth/useAuth";
 
 export const Navbar = () => {
   const auth = useAuth();

@@ -1,5 +1,5 @@
 import type { FirebaseOptions } from "firebase/app";
-import { config } from "../config";
+import { config } from "~/config";
 
 export const firebaseConfig: FirebaseOptions = {
   apiKey: config.firebase.apiKey,

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { useFirebase } from "../../providers/firebase/useFirebase";
+import { useFirebase } from "~/providers/firebase/useFirebase";
 import { getUser } from "./getUser";
-import { useAuth } from "../../providers/auth/useAuth";
+import { useAuth } from "~/providers/auth/useAuth";
 
 export const useGetUser = () => {
   const { firestore } = useFirebase();

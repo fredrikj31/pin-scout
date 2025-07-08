@@ -1,7 +1,7 @@
 import { Globe2, MapPin, Share2, Users } from "lucide-react";
 import { LinkCard } from "./components/LinkCard";
-import { Container } from "../../components/Container";
-import { Navbar } from "../../components/Navbar/Navbar";
+import { Container } from "~/components/Container";
+import { Navbar } from "~/components/Navbar/Navbar";
 
 export const HomePage = () => {
   return (

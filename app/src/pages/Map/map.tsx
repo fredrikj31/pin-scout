@@ -1,4 +1,4 @@
-import { MapEmbed } from "../../components/Map";
+import { MapEmbed } from "~/components/Map";
 
 export const MapPage = () => {
   return (

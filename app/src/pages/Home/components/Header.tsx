@@ -1,5 +1,5 @@
 import { MapPin } from "lucide-react";
-import { useGetUser } from "../../../api/getUser/useGetUser";
+import { useGetUser } from "~/api/getUser/useGetUser";
 
 export const Header = () => {
   const { data: user } = useGetUser();

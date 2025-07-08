@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { useFirebase } from "../../providers/firebase/useFirebase";
+import { useFirebase } from "~/providers/firebase/useFirebase";
 import { loginUser } from "./loginUser";
 
 export const useLoginUser = () => {
