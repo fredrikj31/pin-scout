@@ -28,7 +28,7 @@ export const App = () => {
                 }
               />
               <Route
-                path="/map"
+                path="/maps/:id"
                 element={
                   <ProtectedRoute>
                     <MapPage />
@@ -36,7 +36,7 @@ export const App = () => {
                 }
               />
               <Route
-                path="/map/:id/edit"
+                path="/maps/:id/edit"
                 element={
                   <ProtectedRoute>
                     <MapEditPage />
