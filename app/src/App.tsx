@@ -9,6 +9,7 @@ import { LoginPage } from "./pages/login";
 import { SignupPage } from "./pages/signup";
 import { MapPage } from "./pages/Map/map";
 import { MapEditPage } from "./pages/MapEdit/MapEdit";
+import { MapListPage } from "./pages/MapList/MapList";
 
 export const App = () => {
   const queryClient = new QueryClient();
@@ -24,6 +25,14 @@ export const App = () => {
                 element={
                   <ProtectedRoute>
                     <HomePage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/maps"
+                element={
+                  <ProtectedRoute>
+                    <MapListPage />
                   </ProtectedRoute>
                 }
               />
