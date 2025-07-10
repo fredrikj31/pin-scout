@@ -20,6 +20,7 @@ import {
 import { Button } from "@shadcn-ui/components/ui/button";
 import { Badge } from "@shadcn-ui/components/ui/badge";
 import { Link } from "react-router";
+import { CreateMapModal } from "~/components/CreateMapModal/CreateMapModal";
 
 export const HomePage = () => {
   return (
@@ -39,15 +40,21 @@ export const HomePage = () => {
 
           {/* Quick Actions */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <Card className="hover:shadow-lg transition-shadow cursor-pointer border-2 border-dashed border-slate-300 hover:border-blue-400">
-              <CardContent className="flex flex-col items-center justify-center p-6 text-center">
-                <Plus className="h-12 w-12 text-blue-600 mb-4" />
-                <h3 className="text-lg font-semibold mb-2">Create New Map</h3>
-                <p className="text-slate-600 text-sm">
-                  Start mapping your next adventure
-                </p>
-              </CardContent>
-            </Card>
+            <CreateMapModal
+              createButtonComponent={
+                <Card className="hover:shadow-lg transition-shadow cursor-pointer border-2 border-dashed border-slate-300 hover:border-blue-400">
+                  <CardContent className="flex flex-col items-center justify-center p-6 text-center">
+                    <Plus className="h-12 w-12 text-blue-600 mb-4" />
+                    <h3 className="text-lg font-semibold mb-2">
+                      Create New Map
+                    </h3>
+                    <p className="text-slate-600 text-sm">
+                      Start mapping your next adventure
+                    </p>
+                  </CardContent>
+                </Card>
+              }
+            />
 
             <Card className="hover:shadow-lg transition-shadow cursor-pointer">
               <CardContent className="flex flex-col items-center justify-center p-6 text-center">
