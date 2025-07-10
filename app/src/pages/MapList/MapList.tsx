@@ -1,19 +1,4 @@
-import { Badge } from "@shadcn-ui/components/ui/badge";
 import { Button } from "@shadcn-ui/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@shadcn-ui/components/ui/card";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@shadcn-ui/components/ui/dropdown-menu";
 import { Input } from "@shadcn-ui/components/ui/input";
 import {
   Select,
@@ -22,21 +7,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@shadcn-ui/components/ui/select";
-import {
-  Calendar,
-  Edit,
-  Eye,
-  MapPin,
-  MoreVertical,
-  Plus,
-  Search,
-  Trash2,
-} from "lucide-react";
+import { MapPin, Plus, Search } from "lucide-react";
 import { Container } from "~/components/Container";
 import { Navbar } from "~/components/Navbar/Navbar";
 import { CreateMapModal } from "~/components/CreateMapModal/CreateMapModal";
+import { useListMaps } from "~/api/maps/listMaps/useListMaps";
+import { MapCard } from "./components/MapCard";
+import { Skeleton } from "@shadcn-ui/components/ui/skeleton";
 
 export const MapListPage = () => {
+  const { data: maps, isFetching: isFetchingMaps } = useListMaps();
+
   return (
     <>
       <Navbar />
@@ -81,92 +62,36 @@ export const MapListPage = () => {
             </div>
           </div>
 
+          {maps === undefined && isFetchingMaps && (
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <Skeleton className="h-[180px] w-full rounded-xl" />
+              <Skeleton className="h-[180px] w-full rounded-xl" />
+              <Skeleton className="h-[180px] w-full rounded-xl" />
+            </div>
+          )}
+
           {/* Maps Grid */}
-          {/* No Results
-              <div className="flex flex-col items-center justify-center py-12 text-center">
-                <MapPin className="h-12 w-12 text-muted-foreground mb-4" />
-                <h3 className="text-lg font-semibold mb-2">No maps found</h3>
-                <p className="text-muted-foreground mb-4">
-                  {searchQuery
-                    ? "Try adjusting your search terms"
-                    : "Create your first map to get started"}
-                </p>
-                <Button>
-                  <Plus className="mr-2 h-4 w-4" />
-                  Create New Map
-                </Button>
-              </div>
-            */}
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <Card className="group hover:shadow-lg transition-shadow duration-200 !gap-0">
-              <CardHeader className="pb-3">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1 min-w-0">
-                    <CardTitle className="text-lg leading-tight mb-1 truncate">
-                      Beach Destinations
-                    </CardTitle>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Calendar className="h-3 w-3" />
-                      <span>April 2, 2024</span>
-                    </div>
-                  </div>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                      >
-                        <MoreVertical className="h-4 w-4" />
-                        <span className="sr-only">Open menu</span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem>
-                        <Eye className="mr-2 h-4 w-4" />
-                        View Map
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <Edit className="mr-2 h-4 w-4" />
-                        Edit Map
-                      </DropdownMenuItem>
-                      <DropdownMenuItem className="text-destructive">
-                        <Trash2 className="mr-2 h-4 w-4" />
-                        Delete Map
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-              </CardHeader>
-
-              <CardContent className="pb-3">
-                <CardDescription className="line-clamp-3 text-sm leading-relaxed">
-                  Beautiful beaches I've visited along the coast. Perfect for
-                  summer vacations and weekend getaways.
-                </CardDescription>
-              </CardContent>
-
-              <CardFooter className="pt-0 flex items-center justify-between">
-                <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                  <div className="flex items-center gap-1">
-                    <MapPin className="h-3 w-3" />
-                    <span>69 pins</span>
-                  </div>
-                  <Badge variant={"default"} className="text-xs">
-                    {"Public"}
-                  </Badge>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-primary hover:text-primary/80 cursor-pointer"
-                >
-                  <Eye className="mr-1 h-3 w-3" />
-                  View
-                </Button>
-              </CardFooter>
-            </Card>
-          </div>
+          {maps && maps.length === 0 && (
+            <div className="flex flex-col items-center justify-center py-12 text-center">
+              <MapPin className="h-12 w-12 text-muted-foreground mb-4" />
+              <h3 className="text-lg font-semibold mb-2">No maps found</h3>
+              <p className="text-muted-foreground mb-4">
+                Create your first map to get started
+              </p>
+            </div>
+          )}
+          {maps && maps.length > 0 && (
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {maps.map((map) => (
+                <MapCard
+                  id={map.id}
+                  name={map.name}
+                  description={map.description}
+                  isPublic={true}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </Container>
     </>

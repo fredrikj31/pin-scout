@@ -1,4 +1,5 @@
-import { addDoc, collection, type Firestore } from "firebase/firestore";
+import { doc, setDoc, type Firestore } from "firebase/firestore";
+import { v4 as uuidv4 } from "uuid";
 
 interface CreateMapOptions {
   firestore: Firestore;
@@ -13,10 +14,11 @@ export const createMap = async ({
   userId,
   mapProperties,
 }: CreateMapOptions) => {
-  await addDoc(
-    collection(firestore, "users", userId, "maps"),
-    mapProperties
-  ).catch((error: unknown) => {
+  const mapId = uuidv4();
+  await setDoc(doc(firestore, "users", userId, "maps", mapId), {
+    id: mapId,
+    ...mapProperties,
+  }).catch((error: unknown) => {
     console.log("Failed to create map document in Firestore", error);
     throw error;
   });
