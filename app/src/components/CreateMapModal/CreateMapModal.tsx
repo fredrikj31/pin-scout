@@ -15,6 +15,7 @@ import { Label } from "@shadcn-ui/components/ui/label";
 import { Input } from "@shadcn-ui/components/ui/input";
 import { Textarea } from "@shadcn-ui/components/ui/textarea";
 import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface CreateMapModal {
   createButtonComponent: ReactNode;
@@ -25,20 +26,20 @@ export const CreateMapModal = ({ createButtonComponent }: CreateMapModal) => {
   const mapNameRef = useRef<HTMLInputElement>(null);
   const mapDescriptionRef = useRef<HTMLTextAreaElement>(null);
 
-  // TODO: add invalidation of query maps - const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
   const { mutate: createMap, isPending: isCreateMapPending } = useCreateMap();
 
   const createMapAction = () => {
-    const mapName = mapNameRef.current?.value;
-    const mapDescription = mapDescriptionRef.current?.value;
+    const mapName = mapNameRef.current?.value.trim();
+    const mapDescription = mapDescriptionRef.current?.value.trim();
     if (mapName === undefined || mapDescription === undefined) return;
 
-    if (mapName.trim().length === 0) {
+    if (mapName.length === 0) {
       console.log("hej");
       toast("Please fill in the map name");
       return;
     }
-    if (mapDescription.trim().length === 0) {
+    if (mapDescription.length === 0) {
       toast("Please give your map a description");
       return;
     }
@@ -55,7 +56,7 @@ export const CreateMapModal = ({ createButtonComponent }: CreateMapModal) => {
           toast("Successfully created map");
           setIsModalOpen(false);
 
-          //TODO: queryClient.invalidateQueries({ queryKey: ["maps"] });
+          queryClient.invalidateQueries({ queryKey: ["user maps"] });
         },
       }
     );
