@@ -34,6 +34,7 @@ import {
 } from "lucide-react";
 import { Container } from "~/components/Container";
 import { Navbar } from "~/components/Navbar/Navbar";
+import { CreateMapModal } from "~/components/CreateMapModal/CreateMapModal";
 
 export const MapListPage = () => {
   return (
@@ -48,10 +49,14 @@ export const MapListPage = () => {
                 Manage and organize your pin collections
               </p>
             </div>
-            <Button className="w-fit cursor-pointer">
-              <Plus className="mr-2 h-4 w-4" />
-              Create New Map
-            </Button>
+            <CreateMapModal
+              createButtonComponent={
+                <Button className="w-fit cursor-pointer">
+                  <Plus className="mr-2 h-4 w-4" />
+                  Create New Map
+                </Button>
+              }
+            />
           </div>
 
           {/* Filters and Search */}

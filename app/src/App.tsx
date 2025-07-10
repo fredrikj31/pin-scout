@@ -10,6 +10,7 @@ import { SignupPage } from "./pages/signup";
 import { MapPage } from "./pages/Map/map";
 import { MapEditPage } from "./pages/MapEdit/MapEdit";
 import { MapListPage } from "./pages/MapList/MapList";
+import { Toaster } from "@shadcn-ui/components/ui/sonner";
 
 export const App = () => {
   const queryClient = new QueryClient();
@@ -55,6 +56,7 @@ export const App = () => {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignupPage />} />
             </Routes>
+            <Toaster />
           </AuthProvider>
         </FirebaseProvider>
       </QueryClientProvider>
