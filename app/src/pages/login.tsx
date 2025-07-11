@@ -1,12 +1,6 @@
 import { Label } from "@radix-ui/react-label";
 import { Button } from "@shadcn-ui/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@shadcn-ui/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@shadcn-ui/components/ui/card";
 import { Input } from "@shadcn-ui/components/ui/input";
 import { useRef } from "react";
 import { Link } from "react-router";
@@ -34,30 +28,17 @@ export const LoginPage = () => {
           <Card>
             <CardHeader>
               <CardTitle>Login to your account</CardTitle>
-              <CardDescription>
-                Enter your email below to login to your account
-              </CardDescription>
+              <CardDescription>Enter your email below to login to your account</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex flex-col gap-6">
                 <div className="grid gap-3">
                   <Label htmlFor="email">Email</Label>
-                  <Input
-                    ref={emailInput}
-                    id="email"
-                    type="email"
-                    placeholder="johndoe@example.com"
-                    required
-                  />
+                  <Input ref={emailInput} id="email" type="email" placeholder="johndoe@example.com" required />
                 </div>
                 <div className="grid gap-3">
                   <Label htmlFor="password">Password</Label>
-                  <Input
-                    ref={passwordInput}
-                    id="password"
-                    type="password"
-                    required
-                  />
+                  <Input ref={passwordInput} id="password" type="password" required />
                 </div>
                 <div className="flex flex-col gap-3">
                   <Button onClick={() => login()} className="w-full">

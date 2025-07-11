@@ -1,11 +1,5 @@
 import { Button } from "@shadcn-ui/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@shadcn-ui/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@shadcn-ui/components/ui/card";
 import { Input } from "@shadcn-ui/components/ui/input";
 import { Label } from "@shadcn-ui/components/ui/label";
 import { Link } from "react-router";
@@ -44,41 +38,20 @@ export const SignupPage = () => {
               <div className="flex flex-col gap-6">
                 <div className="grid gap-3">
                   <Label htmlFor="email">Email</Label>
-                  <Input
-                    ref={emailInput}
-                    id="email"
-                    type="email"
-                    placeholder="johndoe@example.com"
-                    required
-                  />
+                  <Input ref={emailInput} id="email" type="email" placeholder="johndoe@example.com" required />
                 </div>
                 <div className="grid gap-3">
                   <Label htmlFor="password">Password</Label>
-                  <Input
-                    ref={passwordInput}
-                    id="password"
-                    type="password"
-                    required
-                  />
+                  <Input ref={passwordInput} id="password" type="password" required />
                 </div>
                 <div className="flex flex-row gap-2">
                   <div className="grid gap-3">
                     <Label htmlFor="firstName">First Name</Label>
-                    <Input
-                      ref={firstNameInput}
-                      id="firstName"
-                      type="text"
-                      required
-                    />
+                    <Input ref={firstNameInput} id="firstName" type="text" required />
                   </div>
                   <div className="grid gap-3">
                     <Label htmlFor="lastName">Last Name</Label>
-                    <Input
-                      ref={lastNameInput}
-                      id="lastName"
-                      type="text"
-                      required
-                    />
+                    <Input ref={lastNameInput} id="lastName" type="text" required />
                   </div>
                 </div>
                 <div className="flex flex-col gap-3">

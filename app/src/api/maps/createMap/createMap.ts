@@ -9,11 +9,7 @@ interface CreateMapOptions {
     description: string;
   };
 }
-export const createMap = async ({
-  firestore,
-  userId,
-  mapProperties,
-}: CreateMapOptions) => {
+export const createMap = async ({ firestore, userId, mapProperties }: CreateMapOptions) => {
   const mapId = uuidv4();
   await setDoc(doc(firestore, "users", userId, "maps", mapId), {
     id: mapId,

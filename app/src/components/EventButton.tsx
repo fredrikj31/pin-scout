@@ -10,11 +10,7 @@ export const EventButton = () => {
   };
 
   return (
-    <Button
-      className="hover:cursor-pointer"
-      variant="outline"
-      onClick={() => onClick()}
-    >
+    <Button className="hover:cursor-pointer" variant="outline" onClick={() => onClick()}>
       Click Me
     </Button>
   );

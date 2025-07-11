@@ -1,12 +1,6 @@
 import { Button } from "@shadcn-ui/components/ui/button";
 import { Input } from "@shadcn-ui/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@shadcn-ui/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@shadcn-ui/components/ui/select";
 import { MapPin, Plus, Search } from "lucide-react";
 import { Container } from "~/components/Container";
 import { Navbar } from "~/components/Navbar/Navbar";
@@ -26,9 +20,7 @@ export const MapListPage = () => {
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
               <h1 className="text-3xl font-bold tracking-tight">My Maps</h1>
-              <p className="text-muted-foreground">
-                Manage and organize your pin collections
-              </p>
+              <p className="text-muted-foreground">Manage and organize your pin collections</p>
             </div>
             <CreateMapModal
               createButtonComponent={
@@ -75,20 +67,13 @@ export const MapListPage = () => {
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <MapPin className="h-12 w-12 text-muted-foreground mb-4" />
               <h3 className="text-lg font-semibold mb-2">No maps found</h3>
-              <p className="text-muted-foreground mb-4">
-                Create your first map to get started
-              </p>
+              <p className="text-muted-foreground mb-4">Create your first map to get started</p>
             </div>
           )}
           {maps && maps.length > 0 && (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {maps.map((map) => (
-                <MapCard
-                  id={map.id}
-                  name={map.name}
-                  description={map.description}
-                  isPublic={true}
-                />
+                <MapCard id={map.id} name={map.name} description={map.description} isPublic={true} />
               ))}
             </div>
           )}

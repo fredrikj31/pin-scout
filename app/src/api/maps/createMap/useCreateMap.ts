@@ -7,9 +7,7 @@ export const useCreateMap = () => {
   const { firestore } = useFirebase();
   const auth = useAuth();
   return useMutation({
-    mutationFn: ({
-      mapProperties,
-    }: Pick<Parameters<typeof createMap>[0], "mapProperties">) =>
+    mutationFn: ({ mapProperties }: Pick<Parameters<typeof createMap>[0], "mapProperties">) =>
       createMap({
         firestore,
         userId: auth.user?.uid ?? "",

@@ -1,13 +1,6 @@
 import { Badge } from "@shadcn-ui/components/ui/badge";
 import { Button } from "@shadcn-ui/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@shadcn-ui/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@shadcn-ui/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,9 +23,7 @@ export const MapCard = ({ id, name, description, isPublic }: MapCardProps) => {
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between">
             <div className="flex-1 min-w-0">
-              <CardTitle className="text-lg leading-tight mb-1 truncate">
-                {name}
-              </CardTitle>
+              <CardTitle className="text-lg leading-tight mb-1 truncate">{name}</CardTitle>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Calendar className="h-3 w-3" />
                 <span>April 2, 2024</span>
@@ -64,23 +55,14 @@ export const MapCard = ({ id, name, description, isPublic }: MapCardProps) => {
         </CardHeader>
 
         <CardContent className="pb-3">
-          <CardDescription className="line-clamp-3 text-sm leading-relaxed">
-            {description}
-          </CardDescription>
+          <CardDescription className="line-clamp-3 text-sm leading-relaxed">{description}</CardDescription>
         </CardContent>
 
         <CardFooter className="pt-0 flex items-center justify-between">
-          <Badge
-            variant={isPublic ? "default" : "secondary"}
-            className="text-xs"
-          >
+          <Badge variant={isPublic ? "default" : "secondary"} className="text-xs">
             {isPublic ? "Public" : "Private"}
           </Badge>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-primary hover:text-primary/80 cursor-pointer"
-          >
+          <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80 cursor-pointer">
             <Eye className="mr-1 h-3 w-3" />
             View
           </Button>

@@ -1,8 +1,4 @@
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@shadcn-ui/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@shadcn-ui/components/ui/avatar";
 import { Button } from "@shadcn-ui/components/ui/button";
 import {
   DropdownMenu,
@@ -28,19 +24,14 @@ export const Navbar = () => {
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <Globe className="h-8 w-8 text-blue-600" />
-              <span className="text-2xl font-bold text-slate-900">
-                Pin Scout
-              </span>
+              <span className="text-2xl font-bold text-slate-900">Pin Scout</span>
             </div>
           </div>
 
           {/* Right side actions */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                className="relative size-10 rounded-full hover:cursor-pointer"
-              >
+              <Button variant="ghost" className="relative size-10 rounded-full hover:cursor-pointer">
                 <Avatar className="size-10">
                   <AvatarImage src="/placeholder.svg" alt="User" />
                   <AvatarFallback>JD</AvatarFallback>
@@ -50,12 +41,8 @@ export const Navbar = () => {
             <DropdownMenuContent className="w-56" align="end" forceMount>
               <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">
-                    {user?.firstName}
-                  </p>
-                  <p className="text-xs leading-none text-muted-foreground">
-                    {auth.user?.email}
-                  </p>
+                  <p className="text-sm font-medium leading-none">{user?.firstName}</p>
+                  <p className="text-xs leading-none text-muted-foreground">{auth.user?.email}</p>
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
@@ -68,10 +55,7 @@ export const Navbar = () => {
                 <span>Settings</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem
-                className="hover:cursor-pointer"
-                onClick={() => auth.logout()}
-              >
+              <DropdownMenuItem className="hover:cursor-pointer" onClick={() => auth.logout()}>
                 <span>Log out</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
