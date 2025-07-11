@@ -1,4 +1,10 @@
-import { APIProvider, Map, useMapsLibrary } from "@vis.gl/react-google-maps";
+import {
+  APIProvider,
+  Map,
+  useMapsLibrary,
+  type MapCameraChangedEvent,
+  type MapMouseEvent,
+} from "@vis.gl/react-google-maps";
 import { config } from "~/config";
 import { useEffect } from "react";
 import { getToken, type AppCheckTokenResult } from "firebase/app-check";
@@ -21,7 +27,15 @@ const AppCheckHandler = () => {
   return null;
 };
 
-export const MapEmbed = () => {
+interface MapEmbedProps {
+  defaultCenter: {
+    lat: number;
+    lng: number;
+  };
+  onBoundsChanged?: (event: MapCameraChangedEvent) => void;
+  onClick?: (event: MapMouseEvent) => void;
+}
+export const MapEmbed = ({ defaultCenter, onBoundsChanged, onClick }: MapEmbedProps) => {
   return (
     <APIProvider
       apiKey={config.googleMaps.apiKey}
@@ -32,9 +46,9 @@ export const MapEmbed = () => {
       <Map
         style={{ width: "100%", height: "100%" }}
         defaultZoom={13}
-        defaultCenter={{ lat: -33.860664, lng: 151.208138 }}
-        onBoundsChanged={(event) => console.log(event.detail.bounds)}
-        onClick={(event) => console.log(event)}
+        defaultCenter={defaultCenter}
+        onBoundsChanged={onBoundsChanged}
+        onClick={onClick}
         streetView={null}
         streetViewControl={false}
         fullscreenControl={false}
