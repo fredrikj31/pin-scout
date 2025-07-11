@@ -6,7 +6,7 @@ import { Container } from "~/components/Container";
 import { Navbar } from "~/components/Navbar/Navbar";
 import { CreateMapModal } from "~/components/CreateMapModal/CreateMapModal";
 import { useListMaps } from "~/api/maps/listMaps/useListMaps";
-import { MapCard } from "./components/MapCard";
+import { MapCard } from "~/components/MapCard/MapCard";
 import { Skeleton } from "@shadcn-ui/components/ui/skeleton";
 
 export const MapListPage = () => {
