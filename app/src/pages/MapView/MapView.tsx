@@ -7,7 +7,7 @@ import { Container } from "~/components/Container";
 import { MapEmbed } from "~/components/Map";
 import { Navbar } from "~/components/Navbar/Navbar";
 
-export const MapPage = () => {
+export const MapViewPage = () => {
   return (
     <>
       <Navbar />
