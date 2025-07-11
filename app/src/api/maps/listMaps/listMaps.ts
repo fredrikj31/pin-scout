@@ -1,5 +1,5 @@
 import { collection, getDocs, type Firestore } from "firebase/firestore";
-import { MapSchema, type Map } from "./schemas";
+import { MapSchema, type Map } from "../schemas";
 
 interface ListMapsOptions {
   firestore: Firestore;
