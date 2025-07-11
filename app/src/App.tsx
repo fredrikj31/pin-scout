@@ -7,7 +7,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { HomePage } from "./pages/Home/home";
 import { LoginPage } from "./pages/login";
 import { SignupPage } from "./pages/signup";
-import { MapPage } from "./pages/Map/map";
+import { MapViewPage } from "./pages/MapView/MapView";
 import { MapEditPage } from "./pages/MapEdit/MapEdit";
 import { MapListPage } from "./pages/MapList/MapList";
 import { Toaster } from "@shadcn-ui/components/ui/sonner";
@@ -41,7 +41,7 @@ export const App = () => {
                 path="/maps/:id"
                 element={
                   <ProtectedRoute>
-                    <MapPage />
+                    <MapViewPage />
                   </ProtectedRoute>
                 }
               />
