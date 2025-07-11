@@ -11,6 +11,12 @@ service cloud.firestore {
       match /maps/{mapId} {
         allow create: if request.auth.uid == userId;
         allow read, update, delete: if request.auth.uid == userId;
+
+        // Rule for the "pins" subcollection
+        match /pins/{pinId} {
+          allow create: if request.auth.uid == userId;
+          allow read, update, delete: if request.auth.uid == userId;
+        }
       }
     }
   }

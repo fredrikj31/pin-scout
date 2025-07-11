@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@shadcn-ui/components/ui/input";
 import { Textarea } from "@shadcn-ui/components/ui/textarea";
 import { MapPin, Trash } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useParams } from "react-router";
 import { toast } from "sonner";
 import { useGetMap } from "~/api/maps/getMap/useGetMap";
@@ -11,8 +11,11 @@ import { useUpdateMap } from "~/api/maps/updateMap/useUpdateMap";
 import { Container } from "~/components/Container";
 import { MapEmbed } from "~/components/Map";
 import { Navbar } from "~/components/Navbar/Navbar";
+import { CreateMapPinModal } from "./components/CreateMapPinModal/CreateMapPinModal";
 
 export const MapEditPage = () => {
+  const [isCreateMapPinModalOpen, setIsCreateMapPinModalOpen] = useState<boolean>(false);
+  const [mapPinLocation, setMapPinLocation] = useState<{ lat: number; lng: number } | null>(null);
   const mapNameRef = useRef<HTMLInputElement>(null);
   const mapDescriptionRef = useRef<HTMLTextAreaElement>(null);
 
@@ -112,11 +115,33 @@ export const MapEditPage = () => {
             </div>
             {/* Main Map */}
             <div className="col-span-3 size-full min-h-[1000px]">
-              <MapEmbed />
+              <MapEmbed
+                defaultCenter={{
+                  lat: 55.7306521,
+                  lng: 12.3396037,
+                }}
+                onClick={(event) => {
+                  if (event.detail.latLng) {
+                    setMapPinLocation({
+                      lat: event.detail.latLng.lat,
+                      lng: event.detail.latLng.lng,
+                    });
+                  }
+                  setIsCreateMapPinModalOpen(true);
+                }}
+              />
             </div>
           </div>
         )}
       </Container>
+      {mapId && (
+        <CreateMapPinModal
+          isOpen={isCreateMapPinModalOpen}
+          setIsOpen={(open) => setIsCreateMapPinModalOpen(open)}
+          mapId={mapId}
+          mapPinLocation={mapPinLocation}
+        />
+      )}
     </>
   );
 };
