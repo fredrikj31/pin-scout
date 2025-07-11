@@ -5,14 +5,9 @@ interface ListMapsOptions {
   firestore: Firestore;
   userId: string;
 }
-export const listMaps = async ({
-  firestore,
-  userId,
-}: ListMapsOptions): Promise<Map[]> => {
+export const listMaps = async ({ firestore, userId }: ListMapsOptions): Promise<Map[]> => {
   // TODO: optimize query with limits and pagination
-  const { docs: documents } = await getDocs(
-    collection(firestore, "users", userId, "maps")
-  ).catch((error: unknown) => {
+  const { docs: documents } = await getDocs(collection(firestore, "users", userId, "maps")).catch((error: unknown) => {
     console.log("Failed to list map documents in Firestore", error);
     throw error;
   });

@@ -1,19 +1,11 @@
-import {
-  signInWithEmailAndPassword,
-  type Auth,
-  type User,
-} from "firebase/auth";
+import { signInWithEmailAndPassword, type Auth, type User } from "firebase/auth";
 
 interface LoginUser {
   auth: Auth;
   email: string;
   password: string;
 }
-export const loginUser = async ({
-  auth,
-  email,
-  password,
-}: LoginUser): Promise<User> => {
+export const loginUser = async ({ auth, email, password }: LoginUser): Promise<User> => {
   try {
     const result = await signInWithEmailAndPassword(auth, email, password);
     return result.user;

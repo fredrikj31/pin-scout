@@ -1,8 +1,4 @@
-import {
-  createUserWithEmailAndPassword,
-  type Auth,
-  type User,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, type Auth, type User } from "firebase/auth";
 import { doc, setDoc, type Firestore } from "firebase/firestore";
 
 interface SignupUserOptions {
@@ -22,11 +18,7 @@ export const signupUser = async ({
   lastName,
 }: SignupUserOptions): Promise<User> => {
   // Create auth user
-  const authUser = await createUserWithEmailAndPassword(
-    auth,
-    email,
-    password
-  ).catch((error: unknown) => {
+  const authUser = await createUserWithEmailAndPassword(auth, email, password).catch((error: unknown) => {
     console.log("Failed to signup user with email and password", error);
     throw error;
   });

@@ -1,12 +1,5 @@
 import { Button } from "@shadcn-ui/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@shadcn-ui/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@shadcn-ui/components/ui/card";
 import { Input } from "@shadcn-ui/components/ui/input";
 import { Textarea } from "@shadcn-ui/components/ui/textarea";
 import { MapPin, Trash } from "lucide-react";
@@ -28,9 +21,7 @@ export const MapEditPage = () => {
                   <Input type="text" value="Favorite Places In Paris" />
                 </CardTitle>
                 <CardDescription className="flex items-center space-x-2">
-                  <Textarea className="text-sm text-muted-foreground">
-                    Lorem Ipsum
-                  </Textarea>
+                  <Textarea className="text-sm text-muted-foreground">Lorem Ipsum</Textarea>
                 </CardDescription>
               </CardHeader>
               <CardFooter className="space-y-4">
@@ -54,17 +45,10 @@ export const MapEditPage = () => {
                       1
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate">
-                        Eiffel Tower
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        35.6586, 139.7016
-                      </p>
+                      <p className="text-sm font-medium truncate">Eiffel Tower</p>
+                      <p className="text-xs text-muted-foreground">35.6586, 139.7016</p>
                     </div>
-                    <Button
-                      variant="ghost"
-                      className="group hover:cursor-pointer !p-0 !bg-transparent"
-                    >
+                    <Button variant="ghost" className="group hover:cursor-pointer !p-0 !bg-transparent">
                       <Trash className="size-6 text-red-500 group-hover:text-red-600" />
                     </Button>
                   </div>

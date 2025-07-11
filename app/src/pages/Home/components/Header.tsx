@@ -13,9 +13,7 @@ export const Header = () => {
       </div>
 
       {/* Subtitle */}
-      <p className="text-muted-foreground text-lg font-semibold">
-        Welcome back, {user?.firstName}!
-      </p>
+      <p className="text-muted-foreground text-lg font-semibold">Welcome back, {user?.firstName}!</p>
     </div>
   );
 };

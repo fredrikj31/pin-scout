@@ -7,11 +7,7 @@ import { getAuth } from "firebase/auth";
 import { config } from "~/config";
 import { getFirestore } from "firebase/firestore";
 
-export const FirebaseProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
+export const FirebaseProvider = ({ children }: { children: React.ReactNode }) => {
   const app = initializeApp(firebaseConfig);
 
   if (config.firebase.debugToken) {

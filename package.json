@@ -9,6 +9,11 @@
   "scripts": {
     "app:dev": "pnpm --filter @pin-scout/app run dev",
     "app:build": "pnpm --filter @pin-scout/app run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format:check": "prettier --check app",
+    "format:write": "prettier --write app"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2"
   }
 }

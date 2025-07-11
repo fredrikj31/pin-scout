@@ -1,16 +1,6 @@
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@shadcn-ui/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@shadcn-ui/components/ui/avatar";
 import { Badge } from "@shadcn-ui/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@shadcn-ui/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@shadcn-ui/components/ui/card";
 import { Separator } from "@shadcn-ui/components/ui/separator";
 import { Calendar, Eye, Heart, MapPin } from "lucide-react";
 import { Container } from "~/components/Container";
@@ -27,9 +17,7 @@ export const MapPage = () => {
           <div className="col-span-1 flex flex-col gap-4">
             <Card>
               <CardHeader>
-                <CardTitle className="text-xl">
-                  Favorite Places in Paris
-                </CardTitle>
+                <CardTitle className="text-xl">Favorite Places in Paris</CardTitle>
                 <CardDescription className="flex items-center space-x-2">
                   <Avatar className="h-6 w-6">
                     <AvatarImage />
@@ -39,9 +27,7 @@ export const MapPage = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Lorem Ipsum
-                </p>
+                <p className="text-sm text-muted-foreground leading-relaxed">Lorem Ipsum</p>
 
                 <Separator />
 
@@ -88,12 +74,8 @@ export const MapPage = () => {
                       1
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium truncate">
-                        Eiffel Tower
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        35.6586, 139.7016
-                      </p>
+                      <p className="text-sm font-medium truncate">Eiffel Tower</p>
+                      <p className="text-xs text-muted-foreground">35.6586, 139.7016</p>
                     </div>
                   </div>
                 </div>

@@ -58,7 +58,7 @@ export const CreateMapModal = ({ createButtonComponent }: CreateMapModal) => {
 
           queryClient.invalidateQueries({ queryKey: ["user maps"] });
         },
-      }
+      },
     );
   };
 
@@ -68,27 +68,16 @@ export const CreateMapModal = ({ createButtonComponent }: CreateMapModal) => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Create Map</DialogTitle>
-          <DialogDescription>
-            Give your new map a beautiful name and a nice description.
-          </DialogDescription>
+          <DialogDescription>Give your new map a beautiful name and a nice description.</DialogDescription>
         </DialogHeader>
         <div className="grid gap-4">
           <div className="grid gap-3">
             <Label htmlFor="mapName">Name</Label>
-            <Input
-              ref={mapNameRef}
-              id="mapName"
-              placeholder="Favorite Restaurants"
-            />
+            <Input ref={mapNameRef} id="mapName" placeholder="Favorite Restaurants" />
           </div>
           <div className="grid gap-3">
             <Label htmlFor="mapDescription">Description</Label>
-            <Textarea
-              ref={mapDescriptionRef}
-              id="mapDescription"
-              placeholder="Lorem Ipsum"
-              maxLength={200}
-            />
+            <Textarea ref={mapDescriptionRef} id="mapDescription" placeholder="Lorem Ipsum" maxLength={200} />
           </div>
         </div>
         <DialogFooter>
@@ -97,11 +86,7 @@ export const CreateMapModal = ({ createButtonComponent }: CreateMapModal) => {
               Cancel
             </Button>
           </DialogClose>
-          <Button
-            className="cursor-pointer"
-            onClick={createMapAction}
-            disabled={isCreateMapPending}
-          >
+          <Button className="cursor-pointer" onClick={createMapAction} disabled={isCreateMapPending}>
             Create Map
           </Button>
         </DialogFooter>

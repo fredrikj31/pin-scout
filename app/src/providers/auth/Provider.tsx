@@ -37,9 +37,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     });
   };
 
-  const signup = (
-    data: Omit<Parameters<typeof signupUser>[0], "auth" | "firestore">
-  ) => {
+  const signup = (data: Omit<Parameters<typeof signupUser>[0], "auth" | "firestore">) => {
     signupUser(data, {
       onError: (error) => {
         console.log("Error while signing up!", error);
