@@ -1,13 +1,17 @@
-import { Eye, Globe, Map, MapPin, Plus, Settings, Share2, User } from "lucide-react";
+import { Globe, Map, MapPin, Plus, Settings, Share2, User } from "lucide-react";
 import { Container } from "~/components/Container";
 import { Navbar } from "~/components/Navbar/Navbar";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@shadcn-ui/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@shadcn-ui/components/ui/card";
 import { Button } from "@shadcn-ui/components/ui/button";
-import { Badge } from "@shadcn-ui/components/ui/badge";
 import { Link } from "react-router";
 import { CreateMapModal } from "~/components/CreateMapModal/CreateMapModal";
+import { useListMaps } from "~/api/maps/listMaps/useListMaps";
+import { MapCard } from "~/components/MapCard/MapCard";
+import { Skeleton } from "@shadcn-ui/components/ui/skeleton";
 
 export const HomePage = () => {
+  const { data: maps, isFetching: isFetchingMaps } = useListMaps();
+
   return (
     <div className="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
       <Navbar />
@@ -62,35 +66,29 @@ export const HomePage = () => {
                 </Link>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card className="hover:shadow-lg transition-shadow cursor-pointer">
-                  <div className="aspect-video bg-slate-200 rounded-t-lg overflow-hidden">
-                    <img className="w-full h-full object-cover" />
-                  </div>
-                  <CardHeader className="pb-2">
-                    <div className="flex justify-between items-start">
-                      <CardTitle className="text-lg">Favorite Places in Paris</CardTitle>
-                      <Badge variant={"default"}>{"Public"}</Badge>
-                    </div>
-                    <CardDescription>Lorem Ipsum</CardDescription>
-                  </CardHeader>
-                  <CardContent className="pt-0">
-                    <div className="flex justify-between items-center text-sm text-slate-600">
-                      <div className="flex items-center space-x-4">
-                        <span className="flex items-center">
-                          <MapPin className="h-4 w-4 mr-1" />
-                          69 pins
-                        </span>
-                        <span className="flex items-center">
-                          <Eye className="h-4 w-4 mr-1" />
-                          420 views
-                        </span>
-                      </div>
-                      <span>April 1, 2025</span>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
+              {maps === undefined && isFetchingMaps && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <Skeleton className="h-[180px] w-full rounded-xl" />
+                  <Skeleton className="h-[180px] w-full rounded-xl" />
+                  <Skeleton className="h-[180px] w-full rounded-xl" />
+                </div>
+              )}
+
+              {/* Maps Grid */}
+              {maps && maps.length === 0 && (
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+                  <MapPin className="h-12 w-12 text-muted-foreground mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">No maps found</h3>
+                  <p className="text-muted-foreground mb-4">Create your first map to get started</p>
+                </div>
+              )}
+              {maps && maps.length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {maps.map((map) => (
+                    <MapCard id={map.id} name={map.name} description={map.description} isPublic={true} />
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Sidebar */}
