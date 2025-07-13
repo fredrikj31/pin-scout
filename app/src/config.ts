@@ -11,6 +11,7 @@ const envVarsSchema = z.object({
   VITE_FIREBASE_MEASUREMENT_ID: z.string(),
   VITE_RECAPTCHA_SITE_KEY: z.string(),
   VITE_GOOGLE_MAPS_API_KEY: z.string(),
+  VITE_GOOGLE_MAPS_MAP_ID: z.string(),
 });
 
 const envVars = envVarsSchema.safeParse(import.meta.env);
@@ -32,6 +33,7 @@ export const config = {
   },
   googleMaps: {
     apiKey: envVars.data.VITE_GOOGLE_MAPS_API_KEY,
+    mapId: envVars.data.VITE_GOOGLE_MAPS_MAP_ID,
   },
   recaptcha: {
     siteKey: envVars.data.VITE_RECAPTCHA_SITE_KEY,

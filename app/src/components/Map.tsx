@@ -44,6 +44,7 @@ export const MapEmbed = ({ defaultCenter, onBoundsChanged, onClick }: MapEmbedPr
     >
       <AppCheckHandler />
       <Map
+        mapId={config.googleMaps.mapId}
         style={{ width: "100%", height: "100%" }}
         defaultZoom={13}
         defaultCenter={defaultCenter}
