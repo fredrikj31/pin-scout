@@ -2,19 +2,96 @@ import { Avatar, AvatarFallback, AvatarImage } from "@shadcn-ui/components/ui/av
 import { Badge } from "@shadcn-ui/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@shadcn-ui/components/ui/card";
 import { Separator } from "@shadcn-ui/components/ui/separator";
+import type { MapCameraChangedEvent } from "@vis.gl/react-google-maps";
 import { Calendar, MapPin } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useGetMap } from "~/api/maps/getMap/useGetMap";
+import { useListMapPins } from "~/api/pins/listMapPins/useListMapPins";
 import { Container } from "~/components/Container";
 import { MapEmbed } from "~/components/Map";
 import { Navbar } from "~/components/Navbar/Navbar";
+import { MapPinModal } from "./components/MapPinModal/MapPinModal";
+import { type Pin } from "~/api/pins/schemas";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const debounce = <T extends (...args: any[]) => void>(func: T, delay: number): ((...args: Parameters<T>) => void) => {
+  let timeoutId: NodeJS.Timeout | null;
+
+  return (...args: Parameters<T>) => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(() => func(...args), delay);
+  };
+};
 
 export const MapViewPage = () => {
-  const { id } = useParams();
+  const { id: mapId } = useParams();
+  const [isMapPinModalOpen, setIsMapPinModalOpen] = useState<boolean>(false);
+  const [mapBounds, setMapBounds] = useState<{
+    latitude: {
+      upperBound: number;
+      lowerBound: number;
+    };
+    longitude: {
+      upperBound: number;
+      lowerBound: number;
+    };
+  } | null>(null);
+  const [selectedMapPin, setSelectedMapPin] = useState<Pin | null>(null);
+  const [allMapPins, setAllMapPins] = useState<Record<string, Pin>>({});
 
   const { data: map, isFetching: isFetchingMap } = useGetMap({
-    mapId: id,
+    mapId,
   });
+
+  const { data: mapPins, refetch: refetchMapPins } = useListMapPins({
+    mapId,
+    mapBounds,
+  });
+
+  useEffect(() => {
+    if (!mapPins) return;
+
+    const newMapPins: Record<string, Pin> = {};
+    mapPins.forEach((pin) => {
+      newMapPins[pin.id] = pin;
+    });
+
+    setAllMapPins((prev) => ({ ...prev, ...newMapPins }));
+  }, [mapPins]);
+
+  useEffect(() => {
+    refetchMapPins();
+  }, [refetchMapPins, mapBounds]);
+
+  const handleBoundsChanged = useCallback(
+    debounce((bounds: MapCameraChangedEvent) => {
+      setMapBounds({
+        latitude: {
+          lowerBound: bounds.detail.bounds.south,
+          upperBound: bounds.detail.bounds.north,
+        },
+        longitude: {
+          lowerBound: bounds.detail.bounds.west,
+          upperBound: bounds.detail.bounds.east,
+        },
+      });
+    }, 750),
+    [],
+  );
+
+  const mapPinClickAction = (event: google.maps.MapMouseEvent) => {
+    if (!mapPins) return;
+    const selectedMapPin = mapPins.find(
+      (mapPin) => mapPin.latitude === event.latLng?.lat() && mapPin.longitude === event.latLng?.lng(),
+    );
+    if (!selectedMapPin) return;
+
+    setSelectedMapPin(selectedMapPin);
+    setIsMapPinModalOpen(true);
+  };
 
   return (
     <>
@@ -90,11 +167,24 @@ export const MapViewPage = () => {
             </div>
             {/* Main Map */}
             <div className="col-span-3 size-full min-h-[1000px]">
-              <MapEmbed />
+              <MapEmbed
+                defaultCenter={{
+                  lat: 55.7306521,
+                  lng: 12.3396037,
+                }}
+                markers={Object.values(allMapPins).map((mapPin) => ({ lat: mapPin.latitude, lng: mapPin.longitude }))}
+                onBoundsChanged={(event) => handleBoundsChanged(event)}
+                onMarkerClick={mapPinClickAction}
+              />
             </div>
           </div>
         )}
       </Container>
+      <MapPinModal
+        isOpen={isMapPinModalOpen}
+        setIsOpen={(open) => setIsMapPinModalOpen(open)}
+        mapPin={selectedMapPin}
+      />
     </>
   );
 };
