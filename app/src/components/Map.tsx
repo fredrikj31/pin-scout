@@ -1,4 +1,5 @@
 import {
+  AdvancedMarker,
   APIProvider,
   Map,
   useMapsLibrary,
@@ -32,10 +33,12 @@ interface MapEmbedProps {
     lat: number;
     lng: number;
   };
+  markers?: { lat: number; lng: number }[];
   onBoundsChanged?: (event: MapCameraChangedEvent) => void;
   onClick?: (event: MapMouseEvent) => void;
+  onMarkerClick?: (event: google.maps.MapMouseEvent) => void;
 }
-export const MapEmbed = ({ defaultCenter, onBoundsChanged, onClick }: MapEmbedProps) => {
+export const MapEmbed = ({ defaultCenter, markers, onBoundsChanged, onClick, onMarkerClick }: MapEmbedProps) => {
   return (
     <APIProvider
       apiKey={config.googleMaps.apiKey}
@@ -55,7 +58,16 @@ export const MapEmbed = ({ defaultCenter, onBoundsChanged, onClick }: MapEmbedPr
         fullscreenControl={false}
         mapTypeControl={false}
         clickableIcons={false}
-      />
+      >
+        {markers &&
+          markers.map((marker) => (
+            <AdvancedMarker
+              key={`lat-${marker.lat}-lng-${marker.lng}`}
+              onClick={onMarkerClick}
+              position={{ lat: marker.lat, lng: marker.lng }}
+            />
+          ))}
+      </Map>
     </APIProvider>
   );
 };
