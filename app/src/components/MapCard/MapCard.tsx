@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@shadcn-ui/components/ui/dropdown-menu";
-import { Calendar, Edit, Eye, MoreVertical, Trash2 } from "lucide-react";
+import { Calendar, Edit, Eye, MoreVertical } from "lucide-react";
 import { Link } from "react-router";
 
 interface MapCardProps {
@@ -37,17 +37,17 @@ export const MapCard = ({ id, name, description, isPublic }: MapCardProps) => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem>
-                  <Eye className="mr-2 h-4 w-4" />
-                  View Map
+                <DropdownMenuItem asChild className="cursor-pointer hover:bg-neutral-100">
+                  <Link to={`/maps/${id}`}>
+                    <Eye className="mr-1 h-4 w-4" />
+                    View
+                  </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Edit className="mr-2 h-4 w-4" />
-                  Edit Map
-                </DropdownMenuItem>
-                <DropdownMenuItem className="text-destructive">
-                  <Trash2 className="mr-2 h-4 w-4" />
-                  Delete Map
+                <DropdownMenuItem asChild className="cursor-pointer hover:bg-neutral-100">
+                  <Link to={`/maps/${id}/edit`}>
+                    <Edit className="mr-1 h-4 w-4" />
+                    Edit
+                  </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
