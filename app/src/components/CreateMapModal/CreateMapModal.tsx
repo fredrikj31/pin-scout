@@ -17,10 +17,10 @@ import { Textarea } from "@shadcn-ui/components/ui/textarea";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 
-interface CreateMapModal {
+interface CreateMapModalProps {
   createButtonComponent: ReactNode;
 }
-export const CreateMapModal = ({ createButtonComponent }: CreateMapModal) => {
+export const CreateMapModal = ({ createButtonComponent }: CreateMapModalProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const mapNameRef = useRef<HTMLInputElement>(null);
@@ -35,7 +35,6 @@ export const CreateMapModal = ({ createButtonComponent }: CreateMapModal) => {
     if (mapName === undefined || mapDescription === undefined) return;
 
     if (mapName.length === 0) {
-      console.log("hej");
       toast("Please fill in the map name");
       return;
     }
