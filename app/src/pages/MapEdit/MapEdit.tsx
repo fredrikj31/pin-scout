@@ -12,6 +12,7 @@ import { Container } from "~/components/Container";
 import { MapEmbed } from "~/components/Map";
 import { Navbar } from "~/components/Navbar/Navbar";
 import { CreateMapPinModal } from "./components/CreateMapPinModal/CreateMapPinModal";
+import { DeleteMapModal } from "~/components/DeleteMapModal/DeleteMapModal";
 
 export const MapEditPage = () => {
   const [isCreateMapPinModalOpen, setIsCreateMapPinModalOpen] = useState<boolean>(false);
@@ -81,7 +82,16 @@ export const MapEditPage = () => {
                 </CardHeader>
                 <CardFooter className="space-y-4">
                   {/* Map Stats */}
-                  <div className="flex items-center justify-end w-full text-muted-foreground">
+                  <div className="flex items-center justify-end w-full text-muted-foreground gap-2">
+                    <DeleteMapModal
+                      mapId={map.id}
+                      mapName={map.name}
+                      deleteButtonComponent={
+                        <Button variant="destructive" className="cursor-pointer">
+                          Delete
+                        </Button>
+                      }
+                    />
                     <Button className="cursor-pointer" onClick={updateMapAction} disabled={isUpdateMapPending}>
                       Save
                     </Button>
