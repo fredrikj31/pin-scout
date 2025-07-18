@@ -121,21 +121,20 @@ export const MapViewPage = () => {
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center">
                     <MapPin className="h-5 w-5 mr-2" />
-                    Locations (1)
+                    Locations ({Object.keys(allMapPins).length})
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex items-center space-x-3 p-2 rounded-lg hover:bg-muted/50 cursor-pointer transition-colors">
-                      <div className="flex-shrink-0 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-medium">
-                        1
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium truncate">Eiffel Tower</p>
-                        <p className="text-xs text-muted-foreground">35.6586, 139.7016</p>
-                      </div>
-                    </div>
-                  </div>
+                <CardContent className="flex flex-col gap-2">
+                  {Object.values(allMapPins).map((mapPin, index) => (
+                    <PinLocationRow
+                      name={mapPin.name}
+                      number={index + 1}
+                      location={{
+                        lat: mapPin.latitude,
+                        lng: mapPin.longitude,
+                      }}
+                    />
+                  ))}
                 </CardContent>
               </Card>
             </div>
