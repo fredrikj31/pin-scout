@@ -2,8 +2,8 @@ import { Button } from "@shadcn-ui/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@shadcn-ui/components/ui/card";
 import { Input } from "@shadcn-ui/components/ui/input";
 import { Textarea } from "@shadcn-ui/components/ui/textarea";
-import { MapPin, Trash } from "lucide-react";
-import { useRef, useState } from "react";
+import { MapPin } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { toast } from "sonner";
 import { useGetMap } from "~/api/maps/getMap/useGetMap";
@@ -13,10 +13,27 @@ import { MapEmbed } from "~/components/Map";
 import { Navbar } from "~/components/Navbar/Navbar";
 import { CreateMapPinModal } from "./components/CreateMapPinModal/CreateMapPinModal";
 import { DeleteMapModal } from "~/components/DeleteMapModal/DeleteMapModal";
+import { useListMapPins } from "~/api/pins/listMapPins/useListMapPins";
+import type { Pin } from "~/api/pins/schemas";
+import type { MapCameraChangedEvent } from "@vis.gl/react-google-maps";
+import { PinLocationRow } from "~/components/PinLocationRow/PinLocationRow";
+import { useDebounce } from "~/hooks/useDebounce";
 
 export const MapEditPage = () => {
   const [isCreateMapPinModalOpen, setIsCreateMapPinModalOpen] = useState<boolean>(false);
   const [mapPinLocation, setMapPinLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [allMapPins, setAllMapPins] = useState<Record<string, Pin>>({});
+  const [mapBounds, setMapBounds] = useState<{
+    latitude: {
+      upperBound: number;
+      lowerBound: number;
+    };
+    longitude: {
+      upperBound: number;
+      lowerBound: number;
+    };
+  } | null>(null);
+
   const mapNameRef = useRef<HTMLInputElement>(null);
   const mapDescriptionRef = useRef<HTMLTextAreaElement>(null);
 
@@ -27,6 +44,39 @@ export const MapEditPage = () => {
   const { mutate: updateMap, isPending: isUpdateMapPending } = useUpdateMap({
     mapId,
   });
+
+  const { data: mapPins, refetch: refetchMapPins } = useListMapPins({
+    mapId,
+    mapBounds,
+  });
+
+  const handleBoundsChanged = useDebounce((bounds: MapCameraChangedEvent) => {
+    setMapBounds({
+      latitude: {
+        lowerBound: bounds.detail.bounds.south,
+        upperBound: bounds.detail.bounds.north,
+      },
+      longitude: {
+        lowerBound: bounds.detail.bounds.west,
+        upperBound: bounds.detail.bounds.east,
+      },
+    });
+  }, 750);
+
+  useEffect(() => {
+    if (!mapPins) return;
+
+    const newMapPins: Record<string, Pin> = {};
+    mapPins.forEach((pin) => {
+      newMapPins[pin.id] = pin;
+    });
+
+    setAllMapPins((prev) => ({ ...prev, ...newMapPins }));
+  }, [mapPins]);
+
+  useEffect(() => {
+    refetchMapPins();
+  }, [refetchMapPins, mapBounds]);
 
   const updateMapAction = () => {
     const mapName = mapNameRef.current?.value.trim();
@@ -102,24 +152,22 @@ export const MapEditPage = () => {
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center">
                     <MapPin className="h-5 w-5 mr-2" />
-                    Locations (1)
+                    Locations ({Object.keys(allMapPins).length})
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex items-center space-x-3 p-2 rounded-lg">
-                      <div className="flex-shrink-0 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-medium">
-                        1
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium truncate">Eiffel Tower</p>
-                        <p className="text-xs text-muted-foreground">35.6586, 139.7016</p>
-                      </div>
-                      <Button variant="ghost" className="group hover:cursor-pointer !p-0 !bg-transparent">
-                        <Trash className="size-6 text-red-500 group-hover:text-red-600" />
-                      </Button>
-                    </div>
-                  </div>
+                  {Object.values(allMapPins).map((mapPin, index) => (
+                    <PinLocationRow
+                      name={mapPin.name}
+                      number={index + 1}
+                      location={{
+                        lat: mapPin.latitude,
+                        lng: mapPin.longitude,
+                      }}
+                      deleteEnabled
+                      onDelete={() => console.log("hej med dig")}
+                    />
+                  ))}
                 </CardContent>
               </Card>
             </div>
@@ -139,6 +187,8 @@ export const MapEditPage = () => {
                   }
                   setIsCreateMapPinModalOpen(true);
                 }}
+                markers={Object.values(allMapPins).map((mapPin) => ({ lat: mapPin.latitude, lng: mapPin.longitude }))}
+                onBoundsChanged={(event) => handleBoundsChanged(event)}
               />
             </div>
           </div>

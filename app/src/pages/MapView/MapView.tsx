@@ -1,10 +1,9 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@shadcn-ui/components/ui/avatar";
-import { Badge } from "@shadcn-ui/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@shadcn-ui/components/ui/card";
 import { Separator } from "@shadcn-ui/components/ui/separator";
 import type { MapCameraChangedEvent } from "@vis.gl/react-google-maps";
 import { Calendar, MapPin } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useGetMap } from "~/api/maps/getMap/useGetMap";
 import { useListMapPins } from "~/api/pins/listMapPins/useListMapPins";
@@ -13,18 +12,8 @@ import { MapEmbed } from "~/components/Map";
 import { Navbar } from "~/components/Navbar/Navbar";
 import { MapPinModal } from "./components/MapPinModal/MapPinModal";
 import { type Pin } from "~/api/pins/schemas";
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const debounce = <T extends (...args: any[]) => void>(func: T, delay: number): ((...args: Parameters<T>) => void) => {
-  let timeoutId: NodeJS.Timeout | null;
-
-  return (...args: Parameters<T>) => {
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-    }
-    timeoutId = setTimeout(() => func(...args), delay);
-  };
-};
+import { PinLocationRow } from "~/components/PinLocationRow/PinLocationRow";
+import { useDebounce } from "~/hooks/useDebounce";
 
 export const MapViewPage = () => {
   const { id: mapId } = useParams();
@@ -66,21 +55,18 @@ export const MapViewPage = () => {
     refetchMapPins();
   }, [refetchMapPins, mapBounds]);
 
-  const handleBoundsChanged = useCallback(
-    debounce((bounds: MapCameraChangedEvent) => {
-      setMapBounds({
-        latitude: {
-          lowerBound: bounds.detail.bounds.south,
-          upperBound: bounds.detail.bounds.north,
-        },
-        longitude: {
-          lowerBound: bounds.detail.bounds.west,
-          upperBound: bounds.detail.bounds.east,
-        },
-      });
-    }, 750),
-    [],
-  );
+  const handleBoundsChanged = useDebounce((bounds: MapCameraChangedEvent) => {
+    setMapBounds({
+      latitude: {
+        lowerBound: bounds.detail.bounds.south,
+        upperBound: bounds.detail.bounds.north,
+      },
+      longitude: {
+        lowerBound: bounds.detail.bounds.west,
+        upperBound: bounds.detail.bounds.east,
+      },
+    });
+  }, 750);
 
   const mapPinClickAction = (event: google.maps.MapMouseEvent) => {
     if (!mapPins) return;
@@ -129,39 +115,26 @@ export const MapViewPage = () => {
                       <span>1970-01-01 00:00</span>
                     </div>
                   </div>
-
-                  <Separator />
-
-                  {/* Tags */}
-                  <div>
-                    <h4 className="text-sm font-medium mb-2">Tags</h4>
-                    <div className="flex flex-wrap gap-1">
-                      <Badge variant="secondary" className="text-xs">
-                        Test123
-                      </Badge>
-                    </div>
-                  </div>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center">
                     <MapPin className="h-5 w-5 mr-2" />
-                    Locations (1)
+                    Locations ({Object.keys(allMapPins).length})
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex items-center space-x-3 p-2 rounded-lg hover:bg-muted/50 cursor-pointer transition-colors">
-                      <div className="flex-shrink-0 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-medium">
-                        1
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium truncate">Eiffel Tower</p>
-                        <p className="text-xs text-muted-foreground">35.6586, 139.7016</p>
-                      </div>
-                    </div>
-                  </div>
+                <CardContent className="flex flex-col gap-2">
+                  {Object.values(allMapPins).map((mapPin, index) => (
+                    <PinLocationRow
+                      name={mapPin.name}
+                      number={index + 1}
+                      location={{
+                        lat: mapPin.latitude,
+                        lng: mapPin.longitude,
+                      }}
+                    />
+                  ))}
                 </CardContent>
               </Card>
             </div>
