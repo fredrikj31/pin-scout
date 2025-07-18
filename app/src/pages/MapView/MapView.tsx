@@ -1,5 +1,4 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@shadcn-ui/components/ui/avatar";
-import { Badge } from "@shadcn-ui/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@shadcn-ui/components/ui/card";
 import { Separator } from "@shadcn-ui/components/ui/separator";
 import type { MapCameraChangedEvent } from "@vis.gl/react-google-maps";
@@ -114,18 +113,6 @@ export const MapViewPage = () => {
                     <div className="flex items-center space-x-1">
                       <Calendar className="h-4 w-4" />
                       <span>1970-01-01 00:00</span>
-                    </div>
-                  </div>
-
-                  <Separator />
-
-                  {/* Tags */}
-                  <div>
-                    <h4 className="text-sm font-medium mb-2">Tags</h4>
-                    <div className="flex flex-wrap gap-1">
-                      <Badge variant="secondary" className="text-xs">
-                        Test123
-                      </Badge>
                     </div>
                   </div>
                 </CardContent>
