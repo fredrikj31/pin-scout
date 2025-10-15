@@ -1,6 +1,5 @@
 {
   "projects": {
-    "production": "pin-scout",
-    "development": "pin-scout-dev"
+    "default": "pin-scout"
   }
 }
